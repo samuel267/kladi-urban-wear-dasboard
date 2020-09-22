@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+  <title>Kladi Urban wear</title>
+  <link rel="stylesheet" href="kladi.css" />
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+</head>
+
+<body>
+  <div id="sign_in">
+    <div class="logo">
+      <div class="logo_image">
+        <img src="./images/kladi logo.png" alt="kladi_logo" width="150px" />
+      </div>
+    </div>
+    <div class="sign_in_form">
+      <form id="sign_in_form">
+        <div>
+          <label for="name">Email:</label>
+        </div>
+        <div>
+          <input type="email" name="email" id="email" required autocomplete="off">
+        </div>
+        <div>
+          <label for="password">Password:</label>
+        </div>
+        <div>
+          <input type="password" name="password" required id="password">
+        </div>
+        <div>
+          <button type="submit">Sign In</button>
+        </div>
+      </form>
+      <div class="gmail_auth">
+        <button>Sign In with Gmail</button>
+      </div>
+    </div>
+  </div>
+  <div id="kladi_dashboard">
+    <div id="authLinks">
+      <span id="Current_user">Samueli /<button id="signOut_btn">Sign Out</button></span>
+
+    </div>
+
+    <div class="container">
+      <div id="state">
+        <p>Succesfull</p>
+      </div>
+      <div class="navbar">
+        <div class="logo_image">
+          <img src="./images/kladi logo.png" alt="kladi_logo" width="97px" />
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="side_heading">
+          <h3>Dashboard</h3>
+        </div>
+        <div class="nav_links">
+          <ul>
+            <li><a id="add_link" href="#">Add New Item</a></li>
+            <li><a id="manage_link" href="#">Manage Store</a></li>
+            <li><a id="customers_link" href="#">My Customers</a></li>
+            <li><a id="orders_link" href="#">Customers Order</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        <div id="add_new_item">
+          <div class="header">
+            <h4>Add a New Item</h4>
+          </div>
+          <div class="form">
+            <form id="upload_form">
+              <label for="name">Item Name:</label><br />
+              <input type="text" name="item_name" id="name" required autocapitalize="on" autocomplete="off" /><br />
+              <label for="category">Category:</label><br />
+              <select name="category" id="category">
+                <option value="t-shirt">T-Shirt</option>
+                <option value="hoodie">Hoodie</option>
+                <option value="cap">Head Cap</option>
+              </select><br />
+              <label for="image">Image:</label><br />
+              <figure id="image_figure">
+                <img src="" alt="image preview" id="_image" style="display: none;" />
+                <span id="image_text">Image Preview</span>
+              </figure>
+              <input style="display: none;" type="file" name="image" id="image_file" /><br />
+              <button style="width: 150px;" id="uploadBtn">Upload Image</button><br />
+              <label for="price">Price:</label><br />
+              <input type="number" name="price" id="price" min="1" required /><br />
+              <label for="size">Size:</label><br />
+              <select name="size" id="size">
+                <option value="SM">Small</option>
+                <option value="M">Medium</option>
+                <option value="L">Large</option>
+                <option value="XL">X-large</option>
+              </select><br />
+              <label for="quantity">Quantity:</label><br />
+              <input type="number" value="1" name="quantity" id="quantity" min="1" required /><br />
+              <button id="submit_btn" type="submit" style="width: 350px;">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+        <div id="manage_store">
+          <div class="header">
+            <h4>Manage The Store</h4>
+          </div>
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Price (Ksh)</th>
+                  <th>Category</th>
+                  <th>Size</th>
+                  <th>Quantity</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="customers"></div>
+        <div id="orders"></div>
+      </div>
+    </div>
+    <p style="text-align: center; font-weight: 600; color: #636363;">
+      &copy;Copyright_2020
+    </p>
+  </div>
+  <script type="module" src="./kladi.js"></script>
+</body>
+
+</html>
