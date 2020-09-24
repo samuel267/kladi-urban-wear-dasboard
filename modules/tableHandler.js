@@ -1,19 +1,14 @@
 "use strict";
 
-
-
 export function tableHandler() {
-  let tbody = document.querySelector(".tbody");
-  
   const db = firebase.firestore();
-  
-  db.collection("Kladi_Store").onSnapshot(function (snapshot) {
-    let docs = snapshot.docs;
-    docs.forEach((doc) => {
-      let itemData = doc.data();     
-
+  function manageStore(storeItems) {
+    let tbody = document.querySelectorAll(".tbody");
+    tbody[0].innerHTML = "";
+    storeItems.forEach((item) => {
       let tr = document.createElement("tr");
-      let image = document.createElement("td");
+      let imageDt = document.createElement("td");
+      let image = document.createElement("img");
       let name = document.createElement("td");
       let price = document.createElement("td");
       let category = document.createElement("td");
@@ -22,18 +17,22 @@ export function tableHandler() {
       let remove = document.createElement("td");
       let deleteBtn = document.createElement("button");
 
-      image.innerHTML = `<img src=${itemData.image} alt=${itemData.name} width="100px">`;
-      name.textContent = itemData.name;
-      price.textContent = itemData.price;
-      category.textContent = itemData.category;
-      size.textContent = itemData.size;
-      quantity.textContent = itemData.quantity;
+      image.alt = item.data().name;
+      image.src = item.data().image;
+      image.setAttribute("width", "100px");
+
+      name.textContent = item.data().name;
+      price.textContent = item.data().price;
+      category.textContent = item.data().category;
+      size.textContent = item.data().size;
+      quantity.textContent = item.data().quantity;
       deleteBtn.textContent = `Delete`;
       remove.appendChild(deleteBtn);
+      imageDt.appendChild(image);
 
-      tr.setAttribute("data_ID", doc.id);
+      tr.setAttribute("data_ID", item.id);
 
-      tr.appendChild(image);
+      tr.appendChild(imageDt);
       tr.appendChild(name);
       tr.appendChild(price);
       tr.appendChild(category);
@@ -41,16 +40,20 @@ export function tableHandler() {
       tr.appendChild(quantity);
       tr.appendChild(remove);
 
-      tbody.appendChild(tr)
+      tbody[0].appendChild(tr);
 
       deleteBtn.addEventListener("click", (e) => {
-        e.preventDefault();
         let id = e.target.parentNode.parentNode.getAttribute("data_ID");
         db.collection("Kladi_Store").doc(id).delete();
-        let tr = document.querySelector(`[data_ID = '${doc.id}']`);
-        tbody.removeChild(tr);
+        let tr = document.querySelector(`[data_ID = '${item.id}']`);
+        tbody[0].removeChild(tr);
       });
     });
+  }
 
+  db.collection("Kladi_Store").onSnapshot(function (snapshot) {
+    let docs = snapshot.docs;
+
+    manageStore(docs);
   });
 }

@@ -98,12 +98,9 @@ export function formHandler() {
                   quantity: form.quantity.value,
                 })
                 .then(function () {
-                  form.item_name.value = "";
-                  form.category.value = null;
+                  form.item_name.value = "";                 
                   form.image.value = null;
-                  console.log(form.image.value);
-                  form.price.value = null;
-                  form.size.value = null;
+                  form.price.value = 1;
                   form.quantity.value = 1;
                   resetImage();
                   scaleSuccesMsg();
